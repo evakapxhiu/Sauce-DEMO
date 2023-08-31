@@ -72,5 +72,4 @@ public class LoginPage {
         clickLoginButton();
         webDriverWait.until(ExpectedConditions.visibilityOf(errorMessage));
     }
-    //User click log out button and is logged out.
 }

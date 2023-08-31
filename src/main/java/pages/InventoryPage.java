@@ -31,9 +31,15 @@ public class InventoryPage {
     @FindBy(how = How.ID,
     using = "logout_sidebar_link")
     private WebElement logOutButton;
+    @FindBy(how = How.CLASS_NAME,
+    using = "login_wrapper")
+    private WebElement logInContainer;
+    @FindBy(how = How.ID,
+    using = "react-burger-menu-btn")
+    private WebElement menuBtn;
 
     //Add to cart button and Remove Button for all products.txt.
-    public void clickAddToCartButtons(){
+    public void clickAddToCartButtons() {
         List<WebElement> addToCartsButtons=webDriver.findElements(By.xpath( "//button[contains(@class,'btn_primary')]"));
         addToCartsButtons.forEach(e->e.click());
         System.out.println(addToCartsButtons.size());
@@ -41,7 +47,7 @@ public class InventoryPage {
     public boolean isRemoveButtonVisible() {
         return  removeFromCartButton.isDisplayed();
     }
-    public void clickARemoveButtons(){
+    public void clickARemoveButtons() {
         clickAddToCartButtons();
         List<WebElement> removeFromCartsButtons=webDriver.findElements(By.xpath( "//button[contains(@class,'btn_secondary')]"));
         removeFromCartsButtons.forEach(e->e.click());
@@ -50,30 +56,35 @@ public class InventoryPage {
         return  addToCartButton.isDisplayed();
     }
     //Add to cart only some products.txt,and check if they are displayed on the cart page.
-    public void addToCartThreeProducts(){
+    public void addToCartThreeProducts() {
         List<WebElement> addToCartsButtons=webDriver.findElements(By.xpath( "//button[contains(@class,'btn_primary')]"));
         try {
             for (int i = 0; i < addToCartsButtons.size(); i++) {
                 addToCartsButtons.get(1).click();
                 System.out.println(i);
             }
-        }catch (StaleElementReferenceException e){
+        }catch (StaleElementReferenceException e) {
             e.printStackTrace();
         }
     }
     //LogOut
     public LoginPage clickLogOut() {
+        menuBtn.click();
         logOutButton.click();
         return new LoginPage(webDriver);
     }
+    //User is logged out .
+    public boolean logInPage() {
+       return logInContainer.isDisplayed();
+    }
     //-----***********************************************************************-----
     //I tried something,but it's not correct. I will delete it later or do some refactor.
-    public record Products(String title,String desc,Double price){
+    public record Products(String title,String desc,Double price) {
     }
-    public List<Products> productsWeExpected(){
+    public List<Products> productsWeExpected() {
         List<Products> expctedProd=new ArrayList<>();
         try {
-            List<String> lines= Files.readAllLines(Paths.get("src/test/products.txt"));
+            List<String> lines = Files.readAllLines(Paths.get("src/test/products.txt"));
             for (String line : lines) {
                 String[] parts = line.split(";");
                 if (parts.length == 3) {
@@ -83,14 +94,13 @@ public class InventoryPage {
                     expctedProd.add(new Products(name, description, price));
                 }
             }
-        }catch (IOException e){
+        }catch (IOException e) {
             e.printStackTrace();
         }
         return expctedProd;
     }
     public List<String> getWebTitleProducts() {
         List<WebElement> webTitleProductElements = webDriver.findElements(By.className("inventory_item_name"));
-
         return webTitleProductElements
                 .stream()
                 .map(el -> el.getText().trim())
@@ -98,7 +108,6 @@ public class InventoryPage {
     }
     public List<String> getWebDescriptionProducts () {
         List<WebElement> webDescriptionProductElements = webDriver.findElements(By.className("inventory_item_desc"));
-
         return webDescriptionProductElements
                 .stream()
                 .map(el -> el.getText().trim())
@@ -106,7 +115,6 @@ public class InventoryPage {
     }
     public List<Double> getWebPriceProducts() {
         List<WebElement> webPriceProductElements = webDriver.findElements(By.className("inventory_item_price"));
-
         return webPriceProductElements
                 .stream()
                 .map(WebElement::getText)
@@ -118,15 +126,12 @@ public class InventoryPage {
        try {
            for (int i = 0; i < productsWeExpected().size(); i++) {
                addToCartsButtons.get(2).click();
+               addToCartsButtons.get(3).click();
+               addToCartsButtons.get(4).click();
            }
-       }catch (StaleElementReferenceException e){
+       }catch (StaleElementReferenceException e) {
            e.printStackTrace();
        }
        return new CartPage(webDriver);
-   }
-   public List<WebElement> cartItems2() {
-       List<WebElement> cartItems2=new ArrayList<>();
-        cartItems2.add(addToCartButton);
-       return cartItems2;
    }
 }

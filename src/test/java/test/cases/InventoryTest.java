@@ -21,7 +21,7 @@ public class InventoryTest extends BaseTest {
         inventoryPage = new InventoryPage(driver);
         cartPage=new CartPage(driver);
     }
-        @Test
+    @Test
     public void testClickAddToCartButton() {
         inventoryPage.clickAddToCartButtons();
         assertTrue(inventoryPage.isRemoveButtonVisible());
@@ -33,20 +33,22 @@ public class InventoryTest extends BaseTest {
     }
     @Test
     public void addToCartThreeProducts() {
-         inventoryPage.addToCartThreeProducts();
+        inventoryPage.addToCartThreeProducts();
         assertTrue(inventoryPage.isRemoveButtonVisible());
     }
     @Test
-    public void userIsLoggedOut(){
+    public void userIsLoggedOut() {
         inventoryPage.clickLogOut();
-//        assertTrue(inventoryPage.clickLogOut().);
+        assertTrue(inventoryPage.logInPage());
     }
     //-----***********************************************************************-----
     //I tried something,but it's not correct. I will delete it later or do some refactor.
     @Test
-    public void changeTheNameLAter() {
+    public void addToCartSomeProducts() {
       inventoryPage.addToCartSomeProducts();
       cartPage.clickShoppingCartLink();
-      assertEquals(inventoryPage.cartItems2(),cartPage.getCartItems2());
+      assertEquals(inventoryPage.getWebTitleProducts(),cartPage.getWebTitleProducts());
+      assertEquals(inventoryPage.getWebDescriptionProducts(),cartPage.getWebDescriptionProducts());
+      assertEquals(inventoryPage.getWebPriceProducts(),cartPage.getWebPriceProducts());
     }
 }
