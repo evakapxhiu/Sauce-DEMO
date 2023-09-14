@@ -1,5 +1,4 @@
 package base.tests;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
@@ -11,9 +10,9 @@ public class BaseTest {
     void setUp() {
         driver = getChromeDriver();
     }
-//    @AfterEach
-//    void cleanUp() {
-//        driver.quit();
-//    }
+    @AfterEach
+    void cleanUp() {
+        driver.quit();
+    }
 }
 

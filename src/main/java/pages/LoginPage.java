@@ -7,7 +7,6 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 
 public class LoginPage {
@@ -19,21 +18,21 @@ public class LoginPage {
         PageFactory.initElements(webDriver, this);
     }
     @FindBy(how = How.ID,
-    using = "user-name")
+            using = "user-name")
     private WebElement username;
     @FindBy(how = How.ID,
-    using = "password")
+            using = "password")
     private WebElement password;
     @FindBy(how = How.ID,
-    using = "login-button")
+            using = "login-button")
     private WebElement loginButton;
     //This is to test the login.
     // After you log in you are able to see the inventory page.
     @FindBy(how = How.CLASS_NAME,
-    using = "inventory_container")
+            using = "inventory_container")
     private WebElement inventoryContainer;
     //----User is able to log in successfully with username and pass.----
-    public void setTheLogInCredentials(String name,String pass) {
+    public void setTheLogInCredentials(String name, String pass) {
         username.sendKeys(name);
         password.sendKeys(pass);
         clickLoginButton();
@@ -46,7 +45,7 @@ public class LoginPage {
         try {
             inventoryContainer.isDisplayed();
             return true;
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -56,7 +55,7 @@ public class LoginPage {
     @FindBy(how = How.XPATH,
             using = "//h3[@data-test='error']")
     private WebElement errorMessage;
-    public void userIsLockedOut(String name,String pass) {
+    public void userIsLockedOut(String name, String pass) {
         username.sendKeys(name);
         password.sendKeys(pass);
         loginButton.click();

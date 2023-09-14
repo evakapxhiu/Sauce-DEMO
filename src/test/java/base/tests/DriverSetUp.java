@@ -7,7 +7,7 @@ import java.time.Duration;
 
 public class DriverSetUp {
     public static WebDriver getChromeDriver() {
-        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver-win\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions().addArguments("start-fullscreen");
 
         WebDriver driver = new ChromeDriver(options);
